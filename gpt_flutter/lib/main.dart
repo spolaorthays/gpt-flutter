@@ -1,31 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gpt_flutter/widgets/card_text_widget.dart';
-import 'package:gpt_flutter/widgets/image_text_widget.dart';
-import 'package:gpt_flutter/widgets/model/card_text_model.dart';
+import 'package:gpt_flutter/commons/components/widgets/card_text_widget.dart';
+import 'package:gpt_flutter/commons/components/widgets/image_text_widget.dart';
+import 'package:gpt_flutter/commons/components/model/card_text_model.dart';
+import 'package:gpt_flutter/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
-final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const MyHomePage(title: 'Test');
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'chat',
-          builder: (BuildContext context, GoRouterState state) {
-            return const ChatWidget();
-          },
-        ),
-      ],
-    ),
-  ],
-);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,16 +15,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: _router,
+      routerConfig: provideRoutes(),
     );
-    /*return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'GPT Flutter PDI'),
-    );*/
   }
 }
 
@@ -59,10 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
       body: Stack(
         children: [
           Column(
@@ -141,6 +111,14 @@ class ChatWidget extends StatelessWidget {
                   hintStyle: TextStyle(
                     color: Colors.white30,
                   ),
+                  suffixIcon: Icon(
+                    Icons.send,
+                    color: Color(0xFF6750A4),
+                  ), //Image.asset('assets/images/icon_send.png'),
+                  //suffixIconColor: Colors.white,
+                ),
+                style: TextStyle(
+                  color: Colors.white,
                 ),
               ),
               ElevatedButton(

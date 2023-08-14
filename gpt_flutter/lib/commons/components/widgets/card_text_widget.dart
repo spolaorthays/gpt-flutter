@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpt_flutter/widgets/model/card_text_model.dart';
+import 'package:gpt_flutter/commons/components/model/card_text_model.dart';
 
 class CardTextWidget extends StatelessWidget {
   final String cardText;
