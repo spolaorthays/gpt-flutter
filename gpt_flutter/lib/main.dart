@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:gpt_flutter/commons/components/widgets/card_text_widget.dart';
 import 'package:gpt_flutter/commons/components/widgets/image_text_widget.dart';
 import 'package:gpt_flutter/commons/components/model/card_text_model.dart';
+import 'package:gpt_flutter/commons/di/injection.dart';
 import 'package:gpt_flutter/routes/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   runApp(const MyApp());
 }
 
