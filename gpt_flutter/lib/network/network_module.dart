@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:gpt_flutter/network/auth_interceptor.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -10,6 +11,9 @@ abstract class NetworkModule {
   @Named('PrettyLogger')
   Interceptor providePrettyLogger() => PrettyDioLogger();
 
+  //@Named('AuthInterceptor')
+  //Interceptor provideAuthenticationInterceptor() => AuthInterceptor();
+
   @singleton
   Dio provideDio(
     @Named('BaseUrl') String baseUrl,
@@ -17,8 +21,14 @@ abstract class NetworkModule {
   ) =>
       Dio(
         BaseOptions(baseUrl: baseUrl),
-      )..interceptors.add(prettyLogger);
-
-  //@Named('Authentication')
-  //Interceptor provideAuthenticationInterceptor() =>
+      )
+        ..interceptors.add(prettyLogger)
+        ..interceptors.add(
+          InterceptorsWrapper(onRequest: (request, handler) {
+            request.headers['Authorization'] = 'Bearer ' + 'token';
+            return handler.next(request);
+          }, onError: (error, handler) async {
+            return handler.next(error);
+          }),
+        );
 }
