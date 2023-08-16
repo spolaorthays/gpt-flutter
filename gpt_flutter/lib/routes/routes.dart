@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
-import '../features/chat/presentation/chat_widget.dart';
+import '../features/chat/presentation/chat_page.dart';
 import '../main.dart';
 
 GoRouter provideRoutes() {

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 class AuthInterceptor implements Interceptor {
+  //Não consegui fazer funcionar com o Interceptor apartado
   @override
   void onError(DioException error, ErrorInterceptorHandler handler) {
     handler.next(error);

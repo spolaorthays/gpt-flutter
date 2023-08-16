@@ -25,10 +25,20 @@ abstract class NetworkModule {
         ..interceptors.add(prettyLogger)
         ..interceptors.add(
           InterceptorsWrapper(onRequest: (request, handler) {
-            request.headers['Authorization'] = 'Bearer ' + 'token';
+            //request.headers['Authorization'] = 'Bearer ' + //'token';
+            //request.headers['Content-Type'] = 'application/json';
+
+            request.headers.addAll(
+              {
+                'Authorization': 'Bearer token',
+                'Content-Type': 'application/json'
+              },
+            );
             return handler.next(request);
           }, onError: (error, handler) async {
-            return handler.next(error);
+            //return handler.reject(error);
+            print('Error by statusCode ${error.response?.statusCode}');
+            return handler.reject(error);
           }),
         );
 }

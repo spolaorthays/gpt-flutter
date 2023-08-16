@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpt_flutter/commons/di/injection.dart';
-import 'package:gpt_flutter/features/onboard/presentation/onboard_widget.dart';
+import 'package:gpt_flutter/features/onboard/presentation/onboard_page.dart';
 import 'package:gpt_flutter/routes/routes.dart';
 
 void main() async {

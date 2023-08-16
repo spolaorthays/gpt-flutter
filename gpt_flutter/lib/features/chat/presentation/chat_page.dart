@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gpt_flutter/features/chat/data/model/chat_model.dart';
 import 'package:gpt_flutter/features/chat/data/service/chat_service.dart';
 
 class ChatWidget extends StatelessWidget {
@@ -48,8 +49,16 @@ class ChatWidget extends StatelessWidget {
                 onPressed: () => print('click in button'),
                 child: IconButton(
                   onPressed: () {
-                    final ChatService service = ChatServiceImpl(GetIt.I.get());
-                    service.getListModel();
+                    final ChatService service = GetIt.I.get();
+                    //service.getListModel(); //TODO pode pegar daqui o modelo
+
+                    List<ChatMessage> messages = [
+                      ChatMessage('system', 'hello my friend'),
+                      ChatMessage('user', 'hello my robot')
+                    ];
+                    final ChatRequest request =
+                        ChatRequest('gpt-3.5-turbo-16k-0613', messages);
+                    final ChatResponse = service.getChatConversation(request);
                   },
                   icon: const Icon(Icons.send),
                 ),
