@@ -30,6 +30,18 @@ class ChatRequest extends Equatable {
 
   const ChatRequest(this.model, this.messages);
 
+  factory ChatRequest.fromJson(Map<String, dynamic> json) => ChatRequest(
+      json['model'] as String,
+      (json['messages'] as List<dynamic>)
+          .map((messages) => ChatMessage.fromJson(json))
+          .toList());
+
+  Map<String, dynamic> toJson() => {
+        'model': model,
+        'messages':
+            List<dynamic>.from(messages.map((message) => message.toJson()))
+      };
+
   @override
   List<Object?> get props => [model, messages];
 }
@@ -42,6 +54,11 @@ class ChatMessage extends Equatable {
         json['role'] as String?,
         json['content'] as String?,
       );
+
+  Map<String, dynamic> toJson() => {
+        'role': role,
+        'content': content,
+      };
 
   const ChatMessage(this.role, this.content);
 
@@ -89,8 +106,7 @@ class ChatChoices extends Equatable {
   factory ChatChoices.fromJson(Map<String, dynamic> json) => ChatChoices(
         json['index'] as int?,
         ChatMessage.fromJson(json['message']),
-        json['finish_reason']
-            as String?, //TODO ver esse ponto de estar com underline
+        json['finish_reason'] as String?,
       );
 
   const ChatChoices(this.index, this.message, this.finishReason);

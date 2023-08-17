@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -17,9 +18,11 @@ class ChatServiceImpl implements ChatService {
 
   @override
   Future<ChatResponse> getChatConversation(ChatRequest request) async {
+    final objectToJson = jsonEncode(request.toJson());
+
     final response = await client.post(
       'chat/completions',
-      data: request,
+      data: objectToJson,
     );
 
     if (response.statusCode == 200) {
