@@ -9,9 +9,9 @@ class ChatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF141218),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF141218),
         title: const Text(
           'New chat',
           style: TextStyle(

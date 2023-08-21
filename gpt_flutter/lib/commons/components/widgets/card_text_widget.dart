@@ -10,28 +10,32 @@ class CardTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 24,
-          top: 12,
-          right: 24,
-          bottom: 12,
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        margin: const EdgeInsets.only(
+          left: 20,
+          top: 16,
+          right: 20,
+          bottom: 16,
         ),
-        child: Card(
-          color: Color.fromRGBO(
-            rgboColors.r,
-            rgboColors.g,
-            rgboColors.b,
-            rgboColors.opacity,
+        color: Color.fromRGBO(
+          rgboColors.r,
+          rgboColors.g,
+          rgboColors.b,
+          rgboColors.opacity,
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8),
           ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
-            ),
-          ),
-          margin: const EdgeInsets.all(
-            8,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 24,
+            top: 12,
+            right: 24,
+            bottom: 12,
           ),
           child: Text(
             cardText,

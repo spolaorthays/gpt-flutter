@@ -15,12 +15,15 @@ class ImageTextWidget extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(imagePath),
-            Text(
-              imageText,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Text(
+                imageText,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             )
           ],
