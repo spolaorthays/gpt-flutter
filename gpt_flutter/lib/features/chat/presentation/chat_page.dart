@@ -19,51 +19,63 @@ class ChatWidget extends StatelessWidget {
           ),
         ),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      /*borderSide: BorderSide(
-                      color: Colors.white30,
-                    ),*/
-                      ),
-                  hintText: 'Init chat with chat GPT',
-                  hintStyle: TextStyle(
-                    color: Colors.white30,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.send,
-                    color: Color(0xFF6750A4),
-                  ), //Image.asset('assets/images/icon_send.png'),
-                  //suffixIconColor: Colors.white,
-                ),
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+          Expanded(
+            child: Container(
+              color: Colors.red,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: 'Init chat with chat GPT',
+              hintStyle: const TextStyle(
+                color: Colors.white30,
               ),
-              ElevatedButton(
-                onPressed: () => print('click in button'),
-                child: IconButton(
-                  onPressed: () {
-                    final ChatService service = GetIt.I.get();
-                    //service.getListModel(); //TODO pode pegar daqui o modelo
+              suffixIcon: IconButton(
+                onPressed: () {
+                  final ChatService service = GetIt.I.get();
+                  //service.getListModel(); //TODO pode pegar daqui o modelo
 
-                    List<ChatMessage> messages = [
-                      ChatMessage('system', 'hello my friend'),
-                      ChatMessage('user', 'hello my robot')
-                    ];
-                    final ChatRequest request =
-                        ChatRequest('gpt-3.5-turbo-16k-0613', messages);
-                    final ChatResponse = service.getChatConversation(request);
-                  },
-                  icon: const Icon(Icons.send),
+                  List<ChatMessage> messages = [
+                    ChatMessage('system', 'hello my friend'),
+                    ChatMessage('user', 'hello my robot')
+                  ];
+                  final ChatRequest request =
+                      ChatRequest('gpt-3.5-turbo-16k-0613', messages);
+                  final ChatResponse = service.getChatConversation(request);
+                },
+                icon: SizedBox(
+                  width: 70,
+                  height: 70,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Card(
+                      color: const Color(0xFF6750A4),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          'assets/images/icon_send.png',
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ],
+            ),
+            style: const TextStyle(
+              color: Colors.white,
+            ),
           ),
         ],
       ),
