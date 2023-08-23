@@ -32,6 +32,7 @@ flutter:
   uses-material-design: true
   assets:     
     - assets/images/open_ai_logo.png
+    - assets/images/open_ai_logo2.png
     - assets/images/icon_sun.png
     - assets/images/icon_ray.png
     - assets/images/icon_attention.png

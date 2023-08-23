@@ -25,32 +25,13 @@ class ChatWidget extends StatelessWidget {
       ),
       body: Column(
         children: [
-          /*Expanded(
-            child: SizedBox(
-              //width: double.infinity,
-              //height: double.infinity,
-              child: Row(
-                children: [
-                  FractionallySizedBox(
-                    widthFactor: 0.7,
-                    child: Container(
-                      color: Colors.amber,
-                    ),
-                  ),
-                  FractionallySizedBox(
-                    widthFactor: 0.4,
-                    child: Container(
-                      color: Colors.purple,
-                    ),
-                  ),
-                ],
-              ),
+          FractionallySizedBox(
+            widthFactor: 0.7, //MediaQuery.of(context).size.width * 0.95,
+            child: CardImageTextWidget(
+              marginModel:
+                  CardMarginModel(top: 0, left: 20, right: 0, bottom: 32),
+              cardRadius: 20,
             ),
-          ),*/
-          CardImageTextWidget(
-            marginModel:
-                CardMarginModel(top: 0, left: 20, right: 0, bottom: 32),
-            cardRadius: 20,
           ),
           const CardTextWidget(
             cardText: 'Fake Bot Text',

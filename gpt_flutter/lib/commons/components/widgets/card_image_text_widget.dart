@@ -34,9 +34,8 @@ class CardImageTextWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment:
                 MainAxisAlignment.start, //? MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/images/open_ai_logo.png'),
+              Image.asset('assets/images/open_ai_logo2.png'),
               Container(
                 width: 8,
               ),
