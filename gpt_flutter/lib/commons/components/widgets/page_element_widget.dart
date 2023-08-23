@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../model/card_text_model.dart';
 import 'card_text_widget.dart';
 import 'image_text_widget.dart';
 
@@ -8,7 +7,7 @@ class PageElementWidget extends StatelessWidget {
   final String imagePath;
   final String imageText;
   final List<String> cardText;
-  final CardTextModel cardColor;
+  final Color cardColor;
 
   const PageElementWidget({
     super.key,
@@ -32,7 +31,8 @@ class PageElementWidget extends StatelessWidget {
             (index) {
               return CardTextWidget(
                 cardText: cardText.elementAt(index),
-                rgboColors: cardColor,
+                cardColor: cardColor,
+                borderRadius: 8,
               );
             },
           ),

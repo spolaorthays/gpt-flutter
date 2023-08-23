@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:gpt_flutter/commons/components/model/card_text_model.dart';
 
 class CardTextWidget extends StatelessWidget {
   final String cardText;
-  final CardTextModel rgboColors;
+  final Color cardColor;
+  final double borderRadius;
 
-  const CardTextWidget(
-      {super.key, required this.cardText, required this.rgboColors});
+  const CardTextWidget({
+    super.key,
+    required this.cardText,
+    required this.cardColor,
+    required this.borderRadius,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: double.maxFinite,
       child: Card(
         margin: const EdgeInsets.only(
           left: 20,
@@ -19,15 +23,10 @@ class CardTextWidget extends StatelessWidget {
           right: 20,
           bottom: 16,
         ),
-        color: Color.fromRGBO(
-          rgboColors.r,
-          rgboColors.g,
-          rgboColors.b,
-          rgboColors.opacity,
-        ),
-        shape: const RoundedRectangleBorder(
+        color: cardColor,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(8),
+            Radius.circular(borderRadius),
           ),
         ),
         child: Padding(

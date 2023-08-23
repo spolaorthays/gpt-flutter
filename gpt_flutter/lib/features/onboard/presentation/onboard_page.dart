@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gpt_flutter/commons/components/custom/custom_button_background.dart';
 
-import '../../../commons/components/model/card_text_model.dart';
 import '../../../commons/components/widgets/onboard_pageview_widget.dart';
 
 class OnboardWidget extends StatelessWidget {
@@ -92,7 +91,7 @@ class OnboardWidget extends StatelessWidget {
                 imagePaths: paths,
                 imageTexts: iTexts,
                 cardTexts: cTexts,
-                rgboModel: CardTextModel(255, 255, 255, 0.08),
+                cardColor: const Color(0x335C5C5C),
               ),
             ),
             SizedBox(
