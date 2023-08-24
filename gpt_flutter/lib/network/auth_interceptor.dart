@@ -9,8 +9,7 @@ class AuthInterceptor implements Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers['Authorization'] =
-        'Bearer ' + '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';
+    options.headers['Authorization'] = 'Bearer ' + 'token';
   }
 
   @override

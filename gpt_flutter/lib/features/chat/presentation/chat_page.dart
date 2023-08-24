@@ -24,15 +24,19 @@ class ChatWidget extends StatelessWidget {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          FractionallySizedBox(
-            widthFactor: 0.7, //MediaQuery.of(context).size.width * 0.95,
-            child: CardImageTextWidget(
-              marginModel:
-                  CardMarginModel(top: 0, left: 20, right: 0, bottom: 32),
-              cardRadius: 20,
-            ),
-          ),
+          LayoutBuilder(builder: (context, constrainsts) {
+            return SizedBox(
+              width: constrainsts.maxWidth * 0.7,
+              child: CardImageTextWidget(
+                marginModel:
+                    CardMarginModel(top: 0, left: 20, right: 0, bottom: 32),
+                cardRadius: 20,
+              ),
+            );
+          }),
           const CardTextWidget(
             cardText: 'Fake Bot Text',
             cardColor: Color(0x335C5C5C),
