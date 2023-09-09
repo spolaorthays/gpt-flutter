@@ -5,8 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:gpt_flutter/features/chat/data/model/chat_model.dart';
 import 'package:injectable/injectable.dart';
 
+import '../model/choice_chat_bot_model.dart';
+
 abstract class ChatService {
-  Future<void> getListModel();
+  Future<ChatBotResponse> getListModel();
   Future<ChatResponse> getChatConversation(ChatRequest request);
 }
 
@@ -20,10 +22,14 @@ class ChatServiceImpl implements ChatService {
   Future<ChatResponse> getChatConversation(ChatRequest request) async {
     final objectToJson = jsonEncode(request.toJson());
 
+    print('Request: $objectToJson');
+
     final response = await client.post(
       'chat/completions',
       data: objectToJson,
     );
+
+    print('Response: ${response.data}');
 
     if (response.statusCode == 200) {
       return ChatResponse.fromJson(response.data);
@@ -33,12 +39,18 @@ class ChatServiceImpl implements ChatService {
   }
 
   @override
-  Future<void> getListModel() async {
+  Future<ChatBotResponse> getListModel() async {
     final response = await client.get(
       'models',
     );
+
+    if (response.statusCode == 200) {
+      return ChatBotResponse.fromJson(response.data);
+    }
     print('Response: ${response.data}');
     print('Status code: ${response.statusCode}');
+
+    throw const HttpException('Fail to chatbot models');
   }
 }
 

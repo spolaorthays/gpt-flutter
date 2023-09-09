@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gpt_flutter/commons/components/model/card_margin_model.dart';
 
 class CardImageTextWidget extends StatelessWidget {
+  CardImageTextWidget(
+      {super.key,
+      required this.marginModel,
+      required this.cardRadius,
+      required this.cardText,
+      this.shouldShowImage = false});
+
   final CardMarginModel marginModel;
   final double cardRadius;
-
-  const CardImageTextWidget({
-    super.key,
-    required this.marginModel,
-    required this.cardRadius,
-  });
+  final String cardText;
+  bool shouldShowImage;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +38,17 @@ class CardImageTextWidget extends StatelessWidget {
             mainAxisAlignment:
                 MainAxisAlignment.start, //? MainAxisAlignment.end,
             children: [
-              Image.asset('assets/images/open_ai_logo2.png'),
+              Visibility(
+                visible: shouldShowImage,
+                child: Image.asset('assets/images/open_ai_logo2.png'),
+              ),
               Container(
                 width: 8,
               ),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Algum texto esse é um teste para o tamanho do card, parece que não está aplicando margem direito',
-                  style: TextStyle(color: Colors.white),
+                  cardText,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ],

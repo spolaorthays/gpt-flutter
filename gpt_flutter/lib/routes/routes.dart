@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
-import '../features/chat/presentation/chat_page.dart';
+import '../features/chat/presentation/page/chat_page.dart';
 import '../main.dart';
 
 GoRouter provideRoutes() {
@@ -16,7 +16,7 @@ GoRouter provideRoutes() {
           GoRoute(
             path: 'chat',
             builder: (BuildContext context, GoRouterState state) {
-              return const ChatWidget();
+              return const ChatPage();
             },
           ),
         ],

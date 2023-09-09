@@ -1,29 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-//Class for choice chat model
-class ChatResponseModel extends Equatable {
-  final String object;
-  final List<ChatModel> data;
-
-  const ChatResponseModel(this.object, this.data);
-
-  @override
-  List<Object?> get props => [object, data];
-}
-
-class ChatModel extends Equatable {
-  final String id;
-  final String object;
-  final int created;
-  final String ownedBy;
-
-  const ChatModel(this.id, this.object, this.created, this.ownedBy);
-
-  @override
-  List<Object?> get props => [];
-}
-
-//Class for conversation chat
 class ChatRequest extends Equatable {
   final String model;
   final List<ChatMessage> messages;
