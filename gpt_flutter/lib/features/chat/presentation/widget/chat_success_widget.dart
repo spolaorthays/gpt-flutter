@@ -45,7 +45,6 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 final message = widget.messages[index];
-                print('Thays - Valor da message $message');
                 if (message.role == 'user') {
                   return LayoutBuilder(
                     builder: (context, constrainsts) {

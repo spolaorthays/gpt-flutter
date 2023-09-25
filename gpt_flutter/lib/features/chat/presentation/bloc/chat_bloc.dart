@@ -29,7 +29,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   final ChatInteractor _interactor;
-  List<ChatMessage> cachedUserMessages = [];
   List<ChatMessage> cachedAllMessages = [];
 
   Future<void> _onChatRequestEvent(
@@ -39,10 +38,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     emit(state.copyWith(resultState: ChatResultState.loading));
 
     try {
-      final response = await _interactor.getChatConversation(event.request);
-      cachedUserMessages = event.request.messages;
+      final eventMessage = event.request.messages;
+      print('thays - all messages - $cachedAllMessages');
+      print('thays - eventMessage - $eventMessage');
+      //Converter isso pra uma classe de Collection que dentro terá já essa
+      //propriedade de tamanho da lista e ao chamar ela já terá todo tratamento,
+      //n precisando ficar removendo/adicionando toda hora
+      if (cachedAllMessages.isNotEmpty && cachedAllMessages.length == 20) {
+        cachedAllMessages.removeAt(0);
+      }
+      final request = ChatRequest(event.request.model, cachedAllMessages);
+
+      final response = await _interactor.getChatConversation(request);
       cachedAllMessages
           .add(response.choices?.elementAt(0).message as ChatMessage);
+      print('thays - cachedAllMessages: $cachedAllMessages');
 
       emit(
         state.copyWith(
@@ -67,8 +77,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       emit(
         state.copyWith(
-          messages:
-              cachedAllMessages, //.where((element) => element.role == 'user'),
+          messages: cachedAllMessages,
           resultState: ChatResultState.success,
         ),
       );
