@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gpt_flutter/commons/components/widgets/card_text_widget.dart';
+import 'package:gpt_flutter/commons/strings/chat_strings.dart';
 import 'package:gpt_flutter/features/chat/presentation/bloc/chat_bloc.dart';
 
 import '../../../../commons/components/model/card_margin_model.dart';
@@ -96,21 +96,16 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
                   suffixIcon: IconButton(
                     onPressed: () {
                       print('Texto digitado: ${controller.text}');
-                      chatBloc.add(
-                        UserMessageEvent(
-                          ChatMessage(
-                            'user',
-                            controller.text,
-                          ),
-                        ),
-                      );
 
                       chatBloc.add(
                         ChatRequestEvent(
                           ChatRequest(
                             'gpt-3.5-turbo-16k-0613',
                             [
-                              ChatMessage('user', controller.text),
+                              ChatMessage(
+                                ChatStrings.roleUser,
+                                controller.text,
+                              ),
                             ],
                           ),
                         ),
