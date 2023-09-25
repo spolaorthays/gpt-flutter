@@ -1,45 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:gpt_flutter/commons/components/model/card_image_text_model.dart';
 import 'package:gpt_flutter/commons/components/model/card_margin_model.dart';
+import 'package:gpt_flutter/commons/strings/chat_strings.dart';
 
 class CardImageTextWidget extends StatelessWidget {
-  CardImageTextWidget(
-      {super.key,
-      required this.marginModel,
-      required this.cardRadius,
-      required this.cardText,
-      this.shouldShowImage = false});
+  const CardImageTextWidget({
+    super.key,
+    required this.role,
+    required this.message,
+  });
 
-  final CardMarginModel marginModel;
-  final double cardRadius;
-  final String cardText;
-  bool shouldShowImage;
+  final String message;
+  final String role;
 
   @override
   Widget build(BuildContext context) {
+    final CardImageTextModel cardConfigs = defineCardConfigsByRole(role);
+
     return SizedBox(
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(
-              cardRadius, //20 or 60
+              cardConfigs.radius,
             ),
           ),
         ),
         margin: EdgeInsets.only(
-          left: marginModel.left, //20 or 0
-          right: marginModel.right, //0 or 20
-          top: marginModel.top, //0
-          bottom: marginModel.bottom, //32
+          left: cardConfigs.marginModel.left,
+          right: cardConfigs.marginModel.right,
+          top: cardConfigs.marginModel.top,
+          bottom: cardConfigs.marginModel.bottom,
         ),
-        color: const Color(0x335C5C5C), //or 0xFF6750A4
+        color: cardConfigs.color,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
             mainAxisAlignment:
                 MainAxisAlignment.start, //? MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Visibility(
-                visible: shouldShowImage,
+                visible: cardConfigs.shouldShowImage,
                 child: Image.asset('assets/images/open_ai_logo2.png'),
               ),
               Container(
@@ -47,7 +49,7 @@ class CardImageTextWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  cardText,
+                  message,
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -55,6 +57,46 @@ class CardImageTextWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  CardImageTextModel defineCardConfigsByRole(String role) {
+    final CardImageTextModel cardConfigs;
+
+    if (role == ChatStrings.roleUser) {
+      cardConfigs = getCardUserSettings();
+    } else {
+      cardConfigs = getCardAssistantSettings();
+    }
+
+    return cardConfigs;
+  }
+
+  CardImageTextModel getCardUserSettings() {
+    return CardImageTextModel(
+      marginModel: CardMarginModel(
+        top: 0,
+        left: 20,
+        right: 0,
+        bottom: 32,
+      ),
+      color: const Color(0xFF6750A4),
+      shouldShowImage: false,
+      radius: 60,
+    );
+  }
+
+  CardImageTextModel getCardAssistantSettings() {
+    return CardImageTextModel(
+      marginModel: CardMarginModel(
+        top: 0,
+        left: 0,
+        right: 20,
+        bottom: 32,
+      ),
+      color: const Color(0x335C5C5C),
+      shouldShowImage: true,
+      radius: 20,
     );
   }
 }

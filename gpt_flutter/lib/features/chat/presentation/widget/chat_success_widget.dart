@@ -26,6 +26,8 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final ChatBloc chatBloc = context.read<ChatBloc>();
 
     return Scaffold(
@@ -45,36 +47,17 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 final message = widget.messages[index];
-                if (message.role == 'user') {
-                  return LayoutBuilder(
-                    builder: (context, constrainsts) {
-                      return SizedBox(
-                        width: constrainsts.maxWidth * 0.7,
-                        child: CardImageTextWidget(
-                          marginModel: CardMarginModel(
-                              top: 0, left: 20, right: 0, bottom: 32),
-                          cardRadius: 20,
-                          cardText: message.content ?? '',
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return LayoutBuilder(
-                    builder: (context, constrainsts) {
-                      return SizedBox(
-                        width: constrainsts.maxWidth * 0.7,
-                        child: CardImageTextWidget(
-                          marginModel: CardMarginModel(
-                              top: 0, left: 20, right: 0, bottom: 32),
-                          cardRadius: 20,
-                          cardText: message.content ?? '',
-                          shouldShowImage: true,
-                        ),
-                      );
-                    },
-                  );
-                }
+                return LayoutBuilder(
+                  builder: (context, constrainsts) {
+                    return SizedBox(
+                      width: constrainsts.maxWidth * 0.7,
+                      child: CardImageTextWidget(
+                        role: message.role ?? ChatStrings.roleUser,
+                        message: message.content ?? '',
+                      ),
+                    );
+                  },
+                );
               },
               childCount: widget.messages.length,
             ),
