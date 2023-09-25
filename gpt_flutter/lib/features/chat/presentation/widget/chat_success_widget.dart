@@ -62,71 +62,70 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
               childCount: widget.messages.length,
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
+        ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          bottom: 20,
+        ),
+        child: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: 'Init chat with chat GPT',
+            hintStyle: const TextStyle(
+              color: Colors.white30,
             ),
-            sliver: SliverToBoxAdapter(
-              child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: 'Init chat with chat GPT',
-                  hintStyle: const TextStyle(
-                    color: Colors.white30,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      print('Texto digitado: ${controller.text}');
+            suffixIcon: IconButton(
+              onPressed: () {
+                print('Texto digitado: ${controller.text}');
 
-                      chatBloc.add(
-                        ChatRequestEvent(
-                          ChatRequest(
-                            'gpt-3.5-turbo-16k-0613',
-                            [
-                              ChatMessage(
-                                ChatStrings.roleUser,
-                                controller.text,
-                              ),
-                            ],
-                          ),
+                chatBloc.add(
+                  ChatRequestEvent(
+                    ChatRequest(
+                      'gpt-3.5-turbo-16k-0613',
+                      [
+                        ChatMessage(
+                          ChatStrings.roleUser,
+                          controller.text,
                         ),
-                      );
-                      controller.clear();
-                    },
-                    icon: SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Card(
-                          color: const Color(0xFF6750A4),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(4),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              'assets/images/icon_send.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                        ),
+                      ],
+                    ),
+                  ),
+                );
+                controller.clear();
+              },
+              icon: SizedBox(
+                width: 70,
+                height: 70,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Card(
+                    color: const Color(0xFF6750A4),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        'assets/images/icon_send.png',
+                        width: 20,
+                        height: 20,
                       ),
                     ),
                   ),
                 ),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
               ),
             ),
           ),
-        ],
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
