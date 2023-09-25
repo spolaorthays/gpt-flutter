@@ -1,3 +1,4 @@
+import 'package:gpt_flutter/commons/helpers/chat_message_collection.dart';
 import 'package:gpt_flutter/features/chat/data/model/chat_model.dart';
 import 'package:gpt_flutter/features/chat/domain/chat_interactor.dart';
 import 'package:gpt_flutter/features/chat/presentation/bloc/chat_event.dart';
@@ -22,7 +23,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   final ChatInteractor _interactor;
-  List<ChatMessage> cachedAllMessages = [];
+  ChatMessageCollection chatMessageCollection = ChatMessageCollection();
 
   Future<void> _onChatRequestEvent(
     ChatRequestEvent event,
@@ -32,21 +33,22 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     try {
       final userMessage = event.request.messages.first;
-      cachedAllMessages.add(userMessage);
-      print('thays - all messages - $cachedAllMessages');
-      if (cachedAllMessages.isNotEmpty && cachedAllMessages.length == 20) {
-        cachedAllMessages.removeAt(0);
-      }
-      final request = ChatRequest(event.request.model, cachedAllMessages);
+      chatMessageCollection.add(userMessage);
+      print('thays - all messages - ${chatMessageCollection.getList()}');
+
+      final request = ChatRequest(
+        event.request.model,
+        chatMessageCollection.getList(),
+      );
 
       final response = await _interactor.getChatConversation(request);
-      cachedAllMessages
+      chatMessageCollection
           .add(response.choices?.elementAt(0).message as ChatMessage);
-      print('thays - cachedAllMessages: $cachedAllMessages');
+      print('thays - cachedAllMessages: ${chatMessageCollection.getList()}');
 
       emit(
         state.copyWith(
-          messages: cachedAllMessages,
+          messages: chatMessageCollection.getList(),
           resultState: ChatResultState.success,
         ),
       );
