@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gpt_flutter/commons/components/custom/custom_button_background.dart';
+import 'package:gpt_flutter/commons/components/widgets/dash_indicator_widget.dart';
 
 import '../../../commons/components/widgets/onboard_pageview_widget.dart';
 
@@ -39,84 +40,72 @@ class OnboardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.blue;
-      }
-      return Colors.red;
-    }
-
     return Scaffold(
       backgroundColor: const Color(0xFF141218),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 82),
-              child: Container(
-                alignment: Alignment.topCenter,
-                child: Image.asset('assets/images/open_ai_logo.png'),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 82),
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: Image.asset('assets/images/open_ai_logo.png'),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 24),
+            child: Text(
+              'Welcome to Chat GPT',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 32.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 24),
-              child: Text(
-                'Welcome to Chat GPT',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 24),
+            child: Text(
+              'Ask anything, get yout answer',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
+            ),
+          ),
+          Expanded(
+            child: OnboardPageViewWidget(
+              imagePaths: paths,
+              imageTexts: iTexts,
+              cardTexts: cTexts,
+              cardColor: const Color(0x335C5C5C),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: DashIndicatorWidget(paths.length),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: 24,
+                left: 20,
+                right: 20,
+              ),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: CustomButtonBackground(context),
+                ),
+                onPressed: () => context.go(
+                  '/chat',
+                ),
+                child: const Text(
+                  'Let\u0027s go',
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 24),
-              child: Text(
-                'Ask anything, get yout answer',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-            Expanded(
-              child: OnboardPageViewWidget(
-                imagePaths: paths,
-                imageTexts: iTexts,
-                cardTexts: cTexts,
-                cardColor: const Color(0x335C5C5C),
-              ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 24,
-                  left: 20,
-                  right: 20,
-                ),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: CustomButtonBackground(context),
-                  ),
-                  onPressed: () => context.go(
-                    '/chat',
-                  ),
-                  child: const Text(
-                    'Let\u0027s go',
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

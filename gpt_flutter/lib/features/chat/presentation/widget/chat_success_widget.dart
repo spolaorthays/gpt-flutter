@@ -83,8 +83,6 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
                       ),
                       suffixIcon: IconButton(
                         onPressed: () {
-                          print('Texto digitado: ${controller.text}');
-
                           chatBloc.add(
                             ChatRequestEvent(
                               ChatRequest(
