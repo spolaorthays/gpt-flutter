@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpt_flutter/commons/strings/chat_strings.dart';
 import 'package:gpt_flutter/features/chat/presentation/bloc/chat_bloc.dart';
 
-import '../../../../commons/components/model/card_margin_model.dart';
 import '../../../../commons/components/widgets/card_image_text_widget.dart';
 import '../../data/model/chat_model.dart';
 import '../bloc/chat_event.dart';
@@ -41,91 +40,100 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
           ),
         ),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                final message = widget.messages[index];
-                return LayoutBuilder(
-                  builder: (context, constrainsts) {
-                    return SizedBox(
-                      width: constrainsts.maxWidth * 0.7,
-                      child: CardImageTextWidget(
-                        role: message.role ?? ChatStrings.roleUser,
-                        message: message.content ?? '',
-                      ),
-                    );
-                  },
-                );
-              },
-              childCount: widget.messages.length,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      final message = widget.messages[index];
+                      return LayoutBuilder(
+                        builder: (context, constrainsts) {
+                          return SizedBox(
+                            width: constrainsts.maxWidth * 0.7,
+                            child: CardImageTextWidget(
+                              role: message.role ?? ChatStrings.roleUser,
+                              message: message.content ?? '',
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    childCount: widget.messages.length,
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 20,
-        ),
-        child: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            hintText: 'Init chat with chat GPT',
-            hintStyle: const TextStyle(
-              color: Colors.white30,
-            ),
-            suffixIcon: IconButton(
-              onPressed: () {
-                print('Texto digitado: ${controller.text}');
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Init chat with chat GPT',
+                      hintStyle: const TextStyle(
+                        color: Colors.white30,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          print('Texto digitado: ${controller.text}');
 
-                chatBloc.add(
-                  ChatRequestEvent(
-                    ChatRequest(
-                      'gpt-3.5-turbo-16k-0613',
-                      [
-                        ChatMessage(
-                          ChatStrings.roleUser,
-                          controller.text,
+                          chatBloc.add(
+                            ChatRequestEvent(
+                              ChatRequest(
+                                'gpt-3.5-turbo-16k-0613',
+                                [
+                                  ChatMessage(
+                                    ChatStrings.roleUser,
+                                    controller.text,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                          controller.clear();
+                        },
+                        icon: SizedBox(
+                          width: 70,
+                          height: 70,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Card(
+                              color: const Color(0xFF6750A4),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(4),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/images/icon_send.png',
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                );
-                controller.clear();
-              },
-              icon: SizedBox(
-                width: 70,
-                height: 70,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Card(
-                    color: const Color(0xFF6750A4),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4),
                       ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'assets/images/icon_send.png',
-                        width: 20,
-                        height: 20,
-                      ),
+                    style: const TextStyle(
+                      color: Colors.white,
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
+        ],
       ),
     );
   }
