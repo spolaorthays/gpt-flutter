@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gpt_flutter/commons/components/model/card_image_text_model.dart';
 import 'package:gpt_flutter/commons/components/model/card_margin_model.dart';
 import 'package:gpt_flutter/commons/strings/chat_strings.dart';
+import 'package:gpt_flutter/commons/strings/image_path_strings.dart';
 
 class CardImageTextWidget extends StatelessWidget {
   const CardImageTextWidget({
@@ -36,13 +37,12 @@ class CardImageTextWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
-            mainAxisAlignment:
-                MainAxisAlignment.start, //? MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Visibility(
                 visible: cardConfigs.shouldShowImage,
-                child: Image.asset('assets/images/open_ai_logo2.png'),
+                child: Image.asset(ImagePath.openAiLogo2),
               ),
               Container(
                 width: 8,

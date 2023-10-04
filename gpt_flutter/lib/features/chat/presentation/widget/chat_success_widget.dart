@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gpt_flutter/commons/strings/chat_strings.dart';
+import 'package:gpt_flutter/commons/strings/image_path_strings.dart';
 import 'package:gpt_flutter/features/chat/presentation/bloc/chat_bloc.dart';
 
 import '../../../../commons/components/widgets/card_image_text_widget.dart';
@@ -113,7 +114,7 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
-                                  'assets/images/icon_send.png',
+                                  ImagePath.iconSend,
                                   width: 20,
                                   height: 20,
                                 ),
