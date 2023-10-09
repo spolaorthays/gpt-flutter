@@ -1,0 +1,132 @@
+{
+  "uuid": "92a91dd5-74ed-4589-93a6-1781a012aad1",
+  "lastMigration": 28,
+  "name": "ChatGPTMocks",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "565a79ff-d240-4fc2-b433-a9a91cbe8558",
+      "type": "http",
+      "documentation": "Take chat model",
+      "method": "get",
+      "endpoint": "models",
+      "responses": [
+        {
+          "uuid": "a42b5320-86d4-4a9c-9bee-640629fa35c5",
+          "body": "{\r\n  \"object\": \"list\",\r\n  \"data\": [\r\n    {\r\n      \"id\": \"model-id-0\",\r\n      \"object\": \"model\",\r\n      \"created\": 1686935002,\r\n      \"owned_by\": \"organization-owner\"\r\n    },\r\n    {\r\n      \"id\": \"model-id-1\",\r\n      \"object\": \"model\",\r\n      \"created\": 1686935002,\r\n      \"owned_by\": \"organization-owner\",\r\n    },\r\n    {\r\n      \"id\": \"model-id-2\",\r\n      \"object\": \"model\",\r\n      \"created\": 1686935002,\r\n      \"owned_by\": \"openai\"\r\n    },\r\n  ],\r\n  \"object\": \"list\"\r\n}\r\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "c9792365-dc49-4b83-9c1e-600e8d80b923",
+      "type": "http",
+      "documentation": "Send question and receive answer",
+      "method": "post",
+      "endpoint": "chat/completions",
+      "responses": [
+        {
+          "uuid": "9f58433a-1b1d-4adc-a6fb-a90b5079a594",
+          "body": "{\r\n   \"id\":\"chatcmpl-123\",\r\n   \"object\":\"chat.completion\",\r\n   \"created\":1677652288,\r\n   \"model\":\"gpt-3.5-turbo-0613\",\r\n   \"choices\":[\r\n      {\r\n         \"index\":0,\r\n         \"message\":{\r\n            \"role\":\"assistant\",\r\n            \"content\":\"Hello there, how may I assist you today?\"\r\n         },\r\n         \"finish_reason\":\"stop\"\r\n      }\r\n   ],\r\n   \"usage\":{\r\n      \"prompt_tokens\":9,\r\n      \"completion_tokens\":12,\r\n      \"total_tokens\":21\r\n   }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "header",
+              "modifier": "Authorization",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id"
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "565a79ff-d240-4fc2-b433-a9a91cbe8558"
+    },
+    {
+      "type": "route",
+      "uuid": "c9792365-dc49-4b83-9c1e-600e8d80b923"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}

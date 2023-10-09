@@ -22,14 +22,10 @@ class ChatServiceImpl implements ChatService {
   Future<ChatResponse> getChatConversation(ChatRequest request) async {
     final objectToJson = jsonEncode(request.toJson());
 
-    print('Request: $objectToJson');
-
     final response = await client.post(
       'chat/completions',
       data: objectToJson,
     );
-
-    print('Response: ${response.data}');
 
     if (response.statusCode == 200) {
       return ChatResponse.fromJson(response.data);
@@ -47,8 +43,6 @@ class ChatServiceImpl implements ChatService {
     if (response.statusCode == 200) {
       return ChatBotResponse.fromJson(response.data);
     }
-    print('Response: ${response.data}');
-    print('Status code: ${response.statusCode}');
 
     throw const HttpException('Fail to chatbot models');
   }
