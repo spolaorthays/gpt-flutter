@@ -23,6 +23,8 @@ class ChatSuccessWidget extends StatefulWidget {
 class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
     with AutomaticKeepAliveClientMixin {
   final TextEditingController controller = TextEditingController();
+  final ScrollController scrollController = ScrollController();
+  String hintText = 'Init chat with chat GPT';
 
   @override
   Widget build(BuildContext context) {
@@ -45,21 +47,17 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
         children: <Widget>[
           Expanded(
             child: CustomScrollView(
+              controller: scrollController,
               slivers: <Widget>[
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                       final message = widget.messages[index];
-                      return LayoutBuilder(
-                        builder: (context, constrainsts) {
-                          return SizedBox(
-                            width: constrainsts.maxWidth * 0.7,
-                            child: CardImageTextWidget(
-                              role: message.role ?? ChatStrings.roleUser,
-                              message: message.content ?? '',
-                            ),
-                          );
-                        },
+                      return SizedBox(
+                        child: CardImageTextWidget(
+                          role: message.role ?? ChatStrings.roleUser,
+                          message: message.content ?? '',
+                        ),
                       );
                     },
                     childCount: widget.messages.length,
@@ -78,7 +76,7 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
                     controller: controller,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      hintText: 'Init chat with chat GPT',
+                      hintText: hintText,
                       hintStyle: const TextStyle(
                         color: Colors.white30,
                       ),
@@ -98,6 +96,10 @@ class _ChatSuccessWidgetState extends State<ChatSuccessWidget>
                             ),
                           );
                           controller.clear();
+                          hintText = '';
+                          FocusScope.of(context).unfocus();
+                          scrollController.jumpTo(
+                              scrollController.position.maxScrollExtent);
                         },
                         icon: SizedBox(
                           width: 70,

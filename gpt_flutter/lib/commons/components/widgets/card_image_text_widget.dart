@@ -75,10 +75,10 @@ class CardImageTextWidget extends StatelessWidget {
   CardImageTextModel getCardUserSettings() {
     return CardImageTextModel(
       marginModel: CardMarginModel(
-        top: 0,
-        left: 20,
-        right: 0,
-        bottom: 32,
+        top: 16,
+        left: 40,
+        right: 20,
+        bottom: 16,
       ),
       color: const Color(0xFF6750A4),
       shouldShowImage: false,
@@ -89,10 +89,10 @@ class CardImageTextWidget extends StatelessWidget {
   CardImageTextModel getCardAssistantSettings() {
     return CardImageTextModel(
       marginModel: CardMarginModel(
-        top: 0,
-        left: 0,
-        right: 20,
-        bottom: 32,
+        top: 16,
+        left: 20,
+        right: 40,
+        bottom: 16,
       ),
       color: const Color(0x335C5C5C),
       shouldShowImage: true,

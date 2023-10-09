@@ -5,7 +5,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 @module
 abstract class NetworkModule {
   @Named('BaseUrl')
-  String get baseUrl => 'https://api.openai.com/v1/';
+  String get baseUrl => 'http://ip:port/';
+  //String get baseUrl => 'https://api.openai.com/v1/';
 
   @Named('PrettyLogger')
   Interceptor providePrettyLogger() => PrettyDioLogger();
